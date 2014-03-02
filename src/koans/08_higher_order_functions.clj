@@ -1,32 +1,32 @@
-(meditations
-  "The map function relates a sequence to another"
-  (= [__ __ __] (map (fn [x] (* 4 x)) [1 2 3]))
 
-  "You may create that mapping"
-  (= [1 4 9 16 25] (map (fn [x] __) [1 2 3 4 5]))
+"The map function relates a sequence to another"
+(= [4 8 12] (map (fn [x] (* 4 x)) [1 2 3]))
 
-  "Or use the names of existing functions"
-  (= __ (map nil? [:a :b nil :c :d]))
+"You may create that mapping"
+(= [1 4 9 16 25] (map (fn [x] (* x x)) [1 2 3 4 5]))
 
-  "A filter can be strong"
-  (= __ (filter (fn [x] false) '(:anything :goes :here)))
+"Or use the names of existing functions"
+(= [false false true false false] (map nil? [:a :b nil :c :d]))
 
-  "Or very weak"
-  (= __ (filter (fn [x] true) '(:anything :goes :here)))
+"A filter can be strong"
+(= '() (filter (fn [x] false) '(:anything :goes :here)))
 
-  "Or somewhere in between"
-  (= [10 20 30] (filter (fn [x] __) [10 20 30 40 50 60 70 80]))
+"Or very weak"
+(= '(:anything :goes :here) (filter (fn [x] true) '(:anything :goes :here)))
 
-  "Maps and filters may be combined"
-  (= [10 20 30] (map (fn [x] __) (filter (fn [x] __) [1 2 3 4 5 6 7 8])))
+"Or somewhere in between"
+(= [10 20 30] (filter (fn [x] (< x 40)) [10 20 30 40 50 60 70 80]))
 
-  "Reducing can increase the result"
-  (= __ (reduce (fn [a b] (* a b)) [1 2 3 4]))
+"Maps and filters may be combined"
+(= [10 20 30] (map (fn [x] (* x 10)) (filter (fn [x] (< x 4)) [1 2 3 4 5 6 7 8])))
 
-  "You can start somewhere else"
-  (= 2400 (reduce (fn [a b] (* a b)) __ [1 2 3 4]))
+"Reducing can increase the result"
+(= 24 (reduce (fn [a b] (* a b)) [1 2 3 4]))
 
-  "Numbers are not the only things one can reduce"
-  (= "longest" (reduce (fn [a b]
-                         (if (< __ __) b a))
-                       ["which" "word" "is" "longest"])))
+"You can start somewhere else"
+(= 2400 (reduce (fn [a b] (* a b)) 100 [1 2 3 4]))
+
+"Numbers are not the only things one can reduce"
+(= "longest" (reduce (fn [a b]
+                       (if (< (count a) (count b)) b a))
+                     ["which" "word" "is" "longest"]))
