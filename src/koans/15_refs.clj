@@ -21,10 +21,8 @@
          (alter the-world exclamator))
         @the-world))
 
-(print (let [exclamator (fn [x] (str x "!"))] (str "Willy")))
-
 "Don't forget to do your work in a transaction!"
-(= 0 (do __
+(= 0 (do (dosync (ref-set the-world 0))
        @the-world))
 
 "Functions passed to alter may depend on the data in the ref"
