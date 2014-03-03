@@ -14,7 +14,7 @@
         @the-world))
 
 "Alter where you need not replace"
-(= "hello!" (let [exclamator (fn [x] (str x "!"))]
+(= "better!!!" (let [exclamator (fn [x] (str x "!"))]
         (dosync
          (alter the-world exclamator)
          (alter the-world exclamator)
