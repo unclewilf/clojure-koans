@@ -6,12 +6,12 @@
 
 (defmacro infix-better [form]
   `(~(second form) ; Note the syntax-quote (`) and unquote (~) characters!
-    __
-    __ ))
+    ~(first form)
+    ~(nth form 2)))
 
 (defmacro r-infix [form]
   (cond (not (seq? form))
-        __
+        form
         (= 1 (count form))
         `(r-infix ~(first form))
         :else
@@ -32,12 +32,16 @@
 "Remember, these are nothing but code transformations"
 (= '(+ 9 1) (macroexpand '(infix (9 + 1))))
 
+"WF - Added some extra understanding!"
+(= '(1 2 3) `(1 2 3))
+(= '(1 2 3) `(1 2 ~(+ 1 2)))
+
 
 "You can do better than that - hand crafting FTW!"
-(= __ (macroexpand '(infix-better (10 * 2))))
+(= '(* 10 2) (macroexpand '(infix-better (10 * 2))))
 
 "Things don't always work as you would like them to... "
-(= __ (macroexpand '(infix-better ( 10 + (2 * 3)))))
+(= '(+ 10 (2 * 3)) (macroexpand '(infix-better ( 10 + (2 * 3)))))
 
 "Really, you don't understand recursion until you understand recursion"
 (= 36 (r-infix (10 + (2 * 3) + (4 * 5))))
