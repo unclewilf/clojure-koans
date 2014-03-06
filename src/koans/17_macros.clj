@@ -17,7 +17,7 @@
         :else
         (let [operator (second form)
               first-arg (first form)
-              others __]
+              others (rest (rest form))]
           `(~operator
             (r-infix ~first-arg)
             (r-infix ~others)))))
